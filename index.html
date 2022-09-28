@@ -35,11 +35,18 @@
                             let host = output.substr(networkbits);
                             out.innerHTML = '<span style="color:blue">Network</span>&nbsp;<span style="color:aqua">Host</span><br />';
                             out.innerHTML += '<span style="color:blue">' + network + '</span>&nbsp;<span style="color:aqua">' + host + '</span>';
+                            if (networkbits < 1 || networkbits > 32)
+                            {
+                                out.innerHTML += '<br/><span style="color:red; font-weight:bold;">INVALID! Subnet must be between 1 and 32</span>&nbsp;';
+                            }
+                            else
                             if (host.replaceAll('0', '') == '')
+                            {
                                 out.innerHTML += '<br/><span style="color:lime; font-weight:bold;">VALID.</span>';
+                            }
                             else
                             {
-                                            out.innerHTML += '<br/><span style="color:red; font-weight:bold;">INVALID!</span>&nbsp;';
+                                out.innerHTML += '<br/><span style="color:red; font-weight:bold;">INVALID!</span>&nbsp;';
                                 let count = 0;
                                 while (host != '' && host.substr(host.length-1,1) == '0')
                                 {
