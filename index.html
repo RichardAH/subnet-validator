@@ -12,11 +12,13 @@
                                             return;
                                         }
                             let oct = parts[0].split('.')
-                            if (oct.length != 4)
+                            if (oct.length < 1 || oct.length > 4)
                             {
-                                            out.innerHTML = 'please include end zeros. So for example 255.255.0.0/16';
+                                            out.innerHTML = 'Invalid. For example 255.255.0.0/16 would be valid';
                                             return;
-                                        }
+                            }
+                            while (oct.length < 4)
+                                oct.push('0');
                             let networkbits = parseInt(parts[1]);
                             let hostbits = 32 - networkbits;
 
@@ -31,11 +33,21 @@
                             console.log(output);
                             let network = output.substr(0, networkbits);
                             let host = output.substr(networkbits);
-                            out.innerHTML = '<span style="color:red">' + network + '</span>&nbsp;<span style="color:aqua">' + host + '</span>';
+                            out.innerHTML = '<span style="color:blue">Network</span>&nbsp;<span style="color:aqua">Host</span><br />';
+                            out.innerHTML += '<span style="color:blue">' + network + '</span>&nbsp;<span style="color:aqua">' + host + '</span>';
                             if (host.replaceAll('0', '') == '')
-                                out.innerHTML += '<br/>VALID.';
+                                out.innerHTML += '<br/><span style="color:lime; font-weight:bold;">VALID.</span>';
                             else
-                                out.innerHTML += '<br/>INVALID!';
+                            {
+                                            out.innerHTML += '<br/><span style="color:red; font-weight:bold;">INVALID!</span>&nbsp;';
+                                let count = 0;
+                                while (host != '' && host.substr(host.length-1,1) == '0')
+                                {
+                                    host = host.substr(0, host.length-1);
+                                    count++;
+                                }
+                                out.innerHTML += '/' + (networkbits + (hostbits - count)) + ' would be valid.';
+                            }
                         }
         </script>
     </head>
