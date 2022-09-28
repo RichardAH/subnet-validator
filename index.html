@@ -17,8 +17,8 @@
                                             out.innerHTML = 'please include end zeros. So for example 255.255.0.0/16';
                                             return;
                                         }
-                            let hostbits = parseInt(parts[1]);
-                            let networkbits = 32 - hostbits;
+                            let networkbits = parseInt(parts[1]);
+                            let hostbits = 32 - networkbits;
 
                             function bin(dec) {
                                             dec = parseInt(dec + '')
@@ -41,6 +41,8 @@
     </head>
     <body>Enter a subnet below and click outside the box to validate it
         <br>
-        <input type="text" placeholder="255.255.255.0/24 (subnet to validate)" onchange="validate()" id="subnet"><div id="validation"><span style="color:red">1111111111111111000</span>&nbsp;<span style="color:aqua">0000000000000</span><br>VALID.</div>
+        <input type="text" placeholder="255.255.255.0/24 (subnet to validate)" onchange="validate()" id="subnet">
+        <div id="validation">
+        </div>
     </body>
 
